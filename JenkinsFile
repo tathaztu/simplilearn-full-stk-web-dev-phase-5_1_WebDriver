@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "m2"
+    }
+
+    stages {
+        stage('Preparation') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/tathaztu/simplilearn-full-stk-web-dev-phase-5_1_WebDriver.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Run Maven on a Unix agent.
+                sh "mvn clean test"
+            }
+        }
+    }
+}
